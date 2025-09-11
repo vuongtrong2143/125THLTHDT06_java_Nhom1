@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class Calculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Nhập hai số nguyên
+        System.out.print("Nhập số nguyên thứ nhất: ");
+        int a = scanner.nextInt();
+
+        System.out.print("Nhập số nguyên thứ hai: ");
+        int b = scanner.nextInt();
+
+        // Tính toán
+        int sum = a + b;
+        int difference = a - b;
+        int product = a * b;
+
+        System.out.println("Tổng: " + sum);
+        System.out.println("Hiệu: " + difference);
+        System.out.println("Tích: " + product);
+
+        // Kiểm tra chia cho 0 trước khi tính thương và phần dư
+        if (b != 0) {
+            int quotient = a / b;
+            int remainder = a % b;
+            System.out.println("Thương: " + quotient);
+            System.out.println("Phần dư: " + remainder);
+        } else {
+            System.out.println("Không thể tính thương và phần dư vì số thứ hai bằng 0.");
+        }
+
+        scanner.close();
+    }
+}
