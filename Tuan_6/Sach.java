@@ -52,7 +52,9 @@ public class Sach {
         System.out.println("So luong: " + soLuong);
         System.out.println("=====================================");
     }
-
+    /*
+     * 3. Ghi đè (Override) phương thức toString()
+    */
     @Override
     public String toString() {
         return "Sach{" + "maSach='" + maSach + '\'' + ", tieuDe='" + tieuDe + '\'' + ", tacGia='" + tacGia + '\'' + ", namXuatBan=" + namXuatBan + ", soLuong=" + soLuong + '}';

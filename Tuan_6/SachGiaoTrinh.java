@@ -22,8 +22,9 @@ public class SachGiaoTrinh extends Sach{
 
     /*
      * 3. Ghi đè (Override) phương thức toString()
-     * Để hiển thị đầy đủ thông tin, bao gồm cả thông tin từ lớp cha.
-     */
+     * Để hiển thị đầy đủ thông tin, bao gồm cả thông tin từ lớp cha ta dùng super.toString(),
+     * sau đó thay thế dấu } cuối cùng bằng dòng lệnh nối dài.
+    */
     @Override
     public String toString() {
         return super.toString().replace("}", ", monHoc='" + monHoc + '\'' + ", capDo='" + capDo + "'}");

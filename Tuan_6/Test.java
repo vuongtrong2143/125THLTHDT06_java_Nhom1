@@ -42,9 +42,19 @@ public class Test {
             System.out.println(" -> Cap nhat that bai, khong tim thay sach.");
         }
 
+        // 6. CẬP NHẬT: Thay đổi maSach của một cuốn sách
+        System.out.println("\n## THUC HIEN CHUC NANG CAP NHAT MA SACH TU 'SGT01' THANH 'SGT001' ##");
+        boolean capNhatMAsACH = quanLy.capNhat("SGT01", "SGT001");
+        if (capNhatMAsACH) {
+            System.out.println(" -> Cap nhat thanh cong. Danh sach sau khi cap nhat:");
+            quanLy.hienThiDanhSach();
+        } else {
+            System.out.println(" -> Cap nhat that bai, khong tim thay sach.");
+        }
+
         // 6. XÓA: Xóa một cuốn sách khỏi danh sách
-        System.out.println("\n## THUC HIEN CHUC NANG XOA SACH 'STT01' ##");
-        boolean xoaThanhCong = quanLy.xoa("STT01");
+        System.out.println("\n## THUC HIEN CHUC NANG XOA SACH 'SGT02' ##");
+        boolean xoaThanhCong = quanLy.xoa("SGT02");
         if (xoaThanhCong) {
             System.out.println(" -> Xoa thanh cong. Danh sach cuoi cung:");
             quanLy.hienThiDanhSach();
