@@ -1,5 +1,10 @@
+/*
+---------------------------------------
+ ----- MỘT LỚP ABSTRACT ĐƯỢC PHÉP IMPLEMENTS MỘT (NHIỀU) INTERFACE MÀ KHÔNG "NHẤT THIẾT" TRIỂN KHAI PHƯƠNG THỨC CỦA NÓ. -----
+---------------------------------------
+*/
 // Tao lop sach
-public abstract class Sach {
+public abstract class Sach implements IKiemKe,IGiaBan {
     // Thuộc tính (attributes) với tính đóng gói (private)
     private String maSach;
     private String tieuDe;
@@ -67,18 +72,12 @@ public abstract class Sach {
         System.out.println("=====================================");
     }
 
-    /*
-    * -->> Phương thức protected để các lớp con có thể truy cập và lấy thông tin cơ bản. <<--
-    * Trả về một chuỗi chứa các thuộc tính chung của sách.
-    * Nháy đôi ": Dùng cho chuỗi (một hoặc nhiều ký tự).
-    * Nháy đơn ': Dùng cho một ký tự duy nhất.
-    */
-    protected String getThongTinCoBan() {
+    public String getThongTinCoBan() {
         return "maSach ='" + maSach + '\'' + 
             ", tieuDe ='" + tieuDe + '\'' + 
             ", tacGia ='" + tacGia + '\'' + 
             ", namXuatBan =" + namXuatBan + 
-            ", soLuong =" + soLuong + 
+            ", soLuong =" + soLuong +
             ", viTri ='" + viTri + '\'';
     }
 
@@ -91,5 +90,4 @@ public abstract class Sach {
         // Giữ nguyên hoạt động cũ cho lớp Sach
         return "Sach{" + getThongTinCoBan() + '}';
     }
-    public abstract double tinhGiaBan();
 }
