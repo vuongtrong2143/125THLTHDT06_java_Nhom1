@@ -1,4 +1,4 @@
-public abstract class Sach { // Chuyển thành abstract class
+public abstract class Sach implements IGiaBan, IkiemKe { // Đã cập nhật implements IGiaBan và IkiemKe
     private String maSach;
     private String tieuDe;
     private String tacGia;
@@ -25,6 +25,7 @@ public abstract class Sach { // Chuyển thành abstract class
         this.giaCoBan = giaCoBan; // Gán giá trị cho giaCoBan
     }
 
+    // --- Getters và Setters cho tất cả các thuộc tính ---
     public String getMaSach() {
         return maSach;
     }
@@ -65,7 +66,6 @@ public abstract class Sach { // Chuyển thành abstract class
         this.soLuong = soLuong;
     }
 
-    // Getter và Setter cho giaCoBan
     public double getGiaCoBan() {
         return giaCoBan;
     }
@@ -74,16 +74,27 @@ public abstract class Sach { // Chuyển thành abstract class
         this.giaCoBan = giaCoBan;
     }
 
-    // Phương thức trừu tượng
+    // --- Phương thức của IGiaBan (Trừu tượng, sẽ được triển khai ở lớp con) ---
+    @Override
     public abstract double tinhGiaBan();
 
+    // --- Phương thức của IKiemKe (Trừu tượng, sẽ được triển khai ở lớp con) ---
+    // Cần phải khai báo abstract vì Sach là abstract class và nó implements IkiemKe
+    // Các lớp con (SachGiaoTrinh, SachTieuThuyet) sẽ thực thi chi tiết
+    @Override
+    public abstract boolean kiemTraTonKho(int soLuongToiThieu);
+
+    @Override
+    public abstract void capNhatViTri(String viTriMoi);
+
+    // --- Các phương thức khác (Giữ nguyên) ---
     public void hienThiThongTin() {
         System.out.println("Ma sach: " + getMaSach());
         System.out.println("Tieu de: " + getTieuDe());
         System.out.println("Tac gia: " + getTacGia());
         System.out.println("Nam xuat ban: " + getNamXuatBan());
         System.out.println("So luong: " + getSoLuong());
-        System.out.println("Gia co ban: " + getGiaCoBan()); // Hiển thị giaCoBan
+        System.out.println("Gia co ban: " + getGiaCoBan());
         System.out.println("-------------------");
     }
 

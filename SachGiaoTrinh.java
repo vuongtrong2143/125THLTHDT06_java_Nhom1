@@ -1,6 +1,6 @@
 public class SachGiaoTrinh extends Sach implements IkiemKe {
-    private String monHoc;
-    private String capDo;
+    private String monHoc; // Thuộc tính riêng
+    private String capDo; // Thuộc tính riêng
 
     public SachGiaoTrinh(String maSach, String tieuDe, String tacGia, int namXuatBan, int soLuong, double giaCoBan,
             String monHoc, String capDo) {
@@ -25,29 +25,32 @@ public class SachGiaoTrinh extends Sach implements IkiemKe {
         this.capDo = capDo;
     }
 
+    // Hoàn thành IGiaBan: tinhGiaBan()
     @Override
     public double tinhGiaBan() {
-        final int NAM_HIEN_TAI = 2025;
+        final int NAM_HIEN_TAI = 2025; // Định nghĩa 2025 là năm hiện tại
         int soNamDaXuatBan = NAM_HIEN_TAI - getNamXuatBan();
+        // Cộng thêm 5000 VNĐ cho mỗi năm đã xuất bản
         double giaBanThem = soNamDaXuatBan * 5000.0;
 
         return getGiaCoBan() + giaBanThem;
     }
 
-    // Triển khai IkiemKe: kiemTraTonKho
+    // Hoàn thành IKiemKe: kiemTraTonKho
     @Override
     public boolean kiemTraTonKho(int soLuongToiThieu) {
         // Trả về true nếu soLuong của sách >= soLuongToiThieu
         return getSoLuong() >= soLuongToiThieu;
     }
 
-    // Triển khai IkiemKe: capNhatViTri
+    // Hoàn thành IKiemKe: capNhatViTri
     @Override
     public void capNhatViTri(String viTriMoi) {
         // In ra thông báo: "Đã chuyển sách [Tiêu đề] đến khu vực: [vị trí mới]."
         System.out.println("Đã chuyển sách '" + getTieuDe() + "' đến khu vực: " + viTriMoi + ".");
     }
 
+    // Cập nhật toString()
     @Override
     public String toString() {
         return "Sach Giao Trinh {" +

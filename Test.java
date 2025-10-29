@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Test {
 
+    // Phương thức nhập thông tin cơ bản của sách
     private static void nhapThongTinSachCoBan(Scanner scanner, Sach sach) {
         System.out.print("Nhap Ma sach: ");
         sach.setMaSach(scanner.nextLine());
@@ -31,110 +32,47 @@ public class Test {
         }
         sach.setGiaCoBan(scanner.nextDouble());
 
-        scanner.nextLine();
+        scanner.nextLine(); // Đọc bỏ ký tự xuống dòng
     }
 
-    private static Sach nhapSachGiaoTrinh(Scanner scanner) {
-        Sach sachTam = new Sach();
-        nhapThongTinSachCoBan(scanner, sachTam);
-
-        System.out.print("Nhap Mon hoc: ");
-        String monHoc = scanner.nextLine();
-        System.out.print("Nhap Cap do (VD: Dai hoc, Pho thong): ");
-        String capDo = scanner.nextLine();
-
-        return new SachGiaoTrinh(sachTam.getMaSach(), sachTam.getTieuDe(), sachTam.getTacGia(),
-                sachTam.getNamXuatBan(), sachTam.getSoLuong(), sachTam.getGiaCoBan(), monHoc, capDo);
-    }
-
-    private static Sach nhapSachTieuThuyet(Scanner scanner) {
-        Sach sachTam = new Sach();
-        nhapThongTinSachCoBan(scanner, sachTam);
-
-        System.out.print("Nhap The loai (VD: Lang man, Khoa hoc vien tuong): ");
-        String theLoai = scanner.nextLine();
-
-        System.out.print("La Sach Series (true/false): ");
-        String seriesStr = scanner.nextLine().toLowerCase();
-        boolean laSeries = seriesStr.equals("true") || seriesStr.equals("co");
-
-        return new SachTieuThuyet(sachTam.getMaSach(), sachTam.getTieuDe(), sachTam.getTacGia(),
-                sachTam.getNamXuatBan(), sachTam.getSoLuong(), sachTam.getGiaCoBan(), theLoai, laSeries);
+    private static void showMenu() {
+        System.out.println("\n========= MENU QUAN LY SACH (Test He Thong) =========");
+        System.out.println("1. Them Sach Giao Trinh");
+        System.out.println("2. Them Sach Tieu Thuyet");
+        System.out.println("3. Hien thi danh sach tat ca sach");
+        System.out.println("4. Tim kiem sach theo Ma");
+        System.out.println("5. Cap nhat thong tin sach theo Ma");
+        System.out.println("6. Xoa sach theo Ma");
+        System.out.println("7. Kiem tra chuc nang IKiemKe (Ton kho, Cap nhat vi tri)");
+        System.out.println("0. Thoat chuong trinh");
+        System.out.println("=====================================================");
+        System.out.print("Nhap lua chon cua ban: ");
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        QuanLySach quanLy = new QuanLySach();
-        int luaChon = -1;
+        // 1. Khai báo Interface: Khởi tạo đối tượng quản lý theo kiểu Interface
+        // IQuanLySach
+        IQuanLySach quanLy = new QuanLySachImpl();
 
-        System.out.println("******************* CHUONG TRINH QUAN LY SACH *******************");
+        int luaChon;
 
-        // 1. Tạo và thêm ít nhất một đối tượng SachGiaoTrinh và SachTieuThuyet.
-        SachGiaoTrinh sgt1 = new SachGiaoTrinh("GT001", "Giai Tich 1", "Nguyen Van A", 2020, 50, 150000.0, "Toan",
-                "Dai hoc");
-        SachTieuThuyet stt1 = new SachTieuThuyet("TT001", "Chien tranh va Hoa binh", "Leo Tolstoy", 1869, 25, 200000.0,
-                "Lich su", false);
-
-        // Dữ liệu mẫu thêm để kiểm tra Giá Bán Series
-        SachTieuThuyet stt2 = new SachTieuThuyet("TT002", "Harry Potter: Hon da phu thuy", "J.K. Rowling", 1997, 80,
-                120000.0, "Huyen ao", true);
-
-        quanLy.themSach(sgt1);
-        quanLy.themSach(stt1);
-        quanLy.themSach(stt2);
-
-        System.out.println("-> Da them san 3 cuon sach de kiem tra chuc nang.");
-
-        // 2. Gọi hienThiDanhSachSach() để kiểm tra kết quả tính giá.
-        System.out.println("\n--- Kiem tra Gia Ban Uoc Tinh cho Sach mau ---");
-        quanLy.hienThiDanhSach();
-        System.out.println("---------------------------------------------");
-
-        // 3. Thực hiện kiểm tra giao diện IkiemKe
-        System.out.println("\n--- Kiem tra Giao dien IkiemKe ---");
-
-        // Tạo một đối tượng IKiemKe tham chiếu đến một đối tượng SachGiaoTrinh
-        IkiemKe kiemKe = sgt1;
-
-        System.out.println("-> Thuc hien kiem tra cho Sach Giao Trinh: " + sgt1.getTieuDe());
-
-        // Gọi phương thức kiemTraTonKho(100)
-        boolean tonKho = kiemKe.kiemTraTonKho(100);
-        System.out.println("   Kiem tra Ton Kho (toi thieu 100): " + (tonKho ? "DAT" : "KHONG DAT") + " (Hien tai: "
-                + sgt1.getSoLuong() + ")");
-
-        // Gọi phương thức capNhatViTri("Kho A1-Kệ 5")
-        kiemKe.capNhatViTri("Kho A1-Kệ 5");
-
-        // Kiểm tra thêm cho SachTieuThuyet
-        IkiemKe kiemKe2 = stt2;
-        System.out.println("\n-> Thuc hien kiem tra cho Sach Tieu Thuyet: " + stt2.getTieuDe());
-
-        // Gọi phương thức kiemTraTonKho(100)
-        boolean tonKho2 = kiemKe2.kiemTraTonKho(100);
-        System.out.println("   Kiem tra Ton Kho (toi thieu 100): " + (tonKho2 ? "DAT" : "KHONG DAT") + " (Hien tai: "
-                + stt2.getSoLuong() + ")");
-
-        // Gọi phương thức capNhatViTri("Kho Tieu Thuyet")
-        kiemKe2.capNhatViTri("Kho Tieu Thuyet");
+        // 2. Thực thi: Tạo đối tượng SachGiaoTrinh và SachTieuThuyet (dữ liệu mẫu)
+        quanLy.themSach(new SachGiaoTrinh("GT001", "Toan Cao Cap A1", "Nguyen Van A", 2020, 150, 85000.0, "Toan Hoc",
+                "Dai Hoc"));
+        quanLy.themSach(new SachTieuThuyet("TT001", "Hoang Tu Be", "Antoine de Saint-Exupéry", 1943, 80, 50000.0,
+                "Huyen Ao", false));
+        quanLy.themSach(new SachTieuThuyet("TT002", "Harry Potter Tap 1", "J.K. Rowling", 1997, 200, 120000.0,
+                "Fantasy", true));
 
         do {
-            System.out.println("\n-------------------------------------------------------------");
-            System.out.println("Vui long chon chuc nang:");
-            System.out.println("1. Them moi Sach");
-            System.out.println("2. Xoa Sach theo Ma");
-            System.out.println("3. Cap nhat thong tin Sach theo Ma");
-            System.out.println("4. Tim kiem Sach theo Ma");
-            System.out.println("5. Hien thi tat ca Sach");
-            System.out.println("6. Kiem tra Ton Kho & Cap nhat Vi tri (Chuc nang IkiemKe)");
-            System.out.println("0. Thoat chuong trinh");
-            System.out.print("Lua chon cua ban: ");
-
+            // 3. Tạo menu cho chương trình quản lí sách
+            showMenu();
             if (scanner.hasNextInt()) {
                 luaChon = scanner.nextInt();
                 scanner.nextLine();
             } else {
-                System.out.println("Lua chon khong hop le. Vui long nhap so.");
+                System.out.println("Loi: Lua chon phai la so nguyen. Vui long nhap lai.");
                 scanner.nextLine();
                 luaChon = -1;
                 continue;
@@ -142,67 +80,69 @@ public class Test {
 
             switch (luaChon) {
                 case 1:
-                    System.out.println("\n--- THEM MOI SACH ---");
-                    System.out.print("Chon loai sach (1: Sach Giao Trinh, 2: Sach Tieu Thuyet): ");
-                    String loaiSach = scanner.nextLine();
-                    Sach sachMoi = null;
-                    if (loaiSach.equals("1")) {
-                        sachMoi = nhapSachGiaoTrinh(scanner);
-                    } else if (loaiSach.equals("2")) {
-                        sachMoi = nhapSachTieuThuyet(scanner);
-                    } else {
-                        System.out.println("Loai sach khong hop le. Quay ve menu chinh.");
-                        break;
-                    }
-                    if (sachMoi != null) {
-                        quanLy.themSach(sachMoi);
-                    }
-                    break;
+                    System.out.println("\n--- Them Sach Giao Trinh ---");
+                    SachGiaoTrinh sgt = new SachGiaoTrinh();
+                    nhapThongTinSachCoBan(scanner, sgt);
 
+                    System.out.print("Nhap Mon hoc: ");
+                    sgt.setMonHoc(scanner.nextLine());
+                    System.out.print("Nhap Cap do: ");
+                    sgt.setCapDo(scanner.nextLine());
+
+                    quanLy.themSach(sgt);
+                    break;
                 case 2:
-                    System.out.println("\n--- XOA SACH ---");
-                    System.out.print("Nhap Ma sach can xoa: ");
-                    String maXoa = scanner.nextLine();
-                    quanLy.xoaSach(maXoa);
-                    break;
+                    System.out.println("\n--- Them Sach Tieu Thuyet ---");
+                    SachTieuThuyet stt = new SachTieuThuyet();
+                    nhapThongTinSachCoBan(scanner, stt);
 
+                    System.out.print("Nhap The loai: ");
+                    stt.setTheLoai(scanner.nextLine());
+                    System.out.print("La sach series (true/false): ");
+                    String laSeriesStr = scanner.nextLine().toLowerCase();
+                    stt.setLaSachSeries(laSeriesStr.equals("true") || laSeriesStr.equals("co"));
+
+                    quanLy.themSach(stt);
+                    break;
                 case 3:
-                    System.out.println("\n--- CAP NHAT SACH ---");
-                    System.out.print("Nhap Ma sach can cap nhat: ");
-                    String maCapNhat = scanner.nextLine();
-                    quanLy.capNhatSach(maCapNhat, scanner);
-                    break;
-
-                case 4:
-                    System.out.println("\n--- TIM KIEM SACH ---");
-                    System.out.print("Nhap Ma sach can tim: ");
-                    String maTimKiem = scanner.nextLine();
-                    Sach ketQua = quanLy.timKiemTheoMa(maTimKiem);
-                    if (ketQua != null) {
-                        System.out.println("-> Tim thay sach:");
-                        System.out.println(ketQua.toString());
-                        System.out.println("   >>> Gia Ban Uoc Tinh: "
-                                + new java.text.DecimalFormat("###,###.0 VNĐ").format(ketQua.tinhGiaBan()));
-                    } else {
-                        System.out.println("-> Khong tim thay sach voi Ma: " + maTimKiem);
-                    }
-                    break;
-
-                case 5:
                     quanLy.hienThiDanhSach();
                     break;
-
+                case 4:
+                    System.out.print("Nhap Ma sach can tim: ");
+                    String maSachTim = scanner.nextLine();
+                    Sach sachTim = quanLy.timKiemTheoMa(maSachTim);
+                    if (sachTim != null) {
+                        System.out.println("-> Tim thay sach:");
+                        System.out.println(sachTim.toString());
+                        System.out.println(
+                                "   >>> Gia Ban Uoc Tinh: " + String.format("%,.0f VNĐ", sachTim.tinhGiaBan()));
+                    } else {
+                        System.out.println("-> Khong tim thay sach voi Ma: " + maSachTim);
+                    }
+                    break;
+                case 5:
+                    System.out.print("Nhap Ma sach can cap nhat: ");
+                    String maSachCapNhat = scanner.nextLine();
+                    quanLy.capNhatSach(maSachCapNhat, scanner);
+                    break;
                 case 6:
-                    System.out.println("\n--- KIEM TRA TON KHO & CAP NHAT VI TRI ---");
-                    System.out.print("Nhap Ma sach can kiem tra/cap nhat: ");
+                    System.out.print("Nhap Ma sach can xoa: ");
+                    String maSachXoa = scanner.nextLine();
+                    quanLy.xoaSach(maSachXoa);
+                    break;
+                case 7:
+                    System.out.println("\n--- Kiem tra chuc nang IKiemKe ---");
+                    System.out.print("Nhap Ma sach de kiem tra IKiemKe: ");
                     String maSachIKK = scanner.nextLine();
                     Sach sachIKK = quanLy.timKiemTheoMa(maSachIKK);
 
+                    // Kiểm tra và ép kiểu sang Interface IKiemKe để gọi phương thức
                     if (sachIKK instanceof IkiemKe) {
                         IkiemKe kiemKeInstance = (IkiemKe) sachIKK;
+                        System.out.println("-> Sach tim thay: " + sachIKK.getTieuDe());
 
                         // 1. Kiem tra Ton Kho
-                        System.out.print("Nhap so luong ton kho toi thieu: ");
+                        System.out.print("Nhap So luong toi thieu can kiem tra: ");
                         int soLuongToiThieu = 0;
                         if (scanner.hasNextInt()) {
                             soLuongToiThieu = scanner.nextInt();
