@@ -1,6 +1,7 @@
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Scanner; // Thêm import để định dạng tiền tệ
 
 public class QuanLySach {
     private List<Sach> danhSachSach;
@@ -57,6 +58,13 @@ public class QuanLySach {
             scanner.next();
         }
         sachCanCapNhat.setSoLuong(scanner.nextInt());
+
+        System.out.print("Nhap Gia co ban moi (Hien tai: " + sachCanCapNhat.getGiaCoBan() + "): ");
+        while (!scanner.hasNextDouble()) {
+            System.out.print("Nhap Gia co ban KHONG hop le. Vui long nhap so thuc: ");
+            scanner.next();
+        }
+        sachCanCapNhat.setGiaCoBan(scanner.nextDouble());
         scanner.nextLine();
 
         if (sachCanCapNhat instanceof SachGiaoTrinh) {
@@ -94,8 +102,13 @@ public class QuanLySach {
         }
 
         System.out.println("\n--- Danh sach Sach Hien Co (" + danhSachSach.size() + " cuon) ---");
+        // Sử dụng DecimalFormat để định dạng tiền tệ cho dễ đọc
+        DecimalFormat formatter = new DecimalFormat("###,###.0 VNĐ");
+
         for (Sach sach : danhSachSach) {
             System.out.println(sach.toString());
+            // Sửa đổi phương thức hienThiDanhSach để in Giá Bán Ước Tính
+            System.out.println("   >>> Gia Ban Uoc Tinh: " + formatter.format(sach.tinhGiaBan()));
             System.out.println("-----------------------------------------------------------------");
         }
     }
