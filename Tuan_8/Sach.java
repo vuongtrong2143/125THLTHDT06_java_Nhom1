@@ -90,4 +90,17 @@ public abstract class Sach implements IKiemKe,IGiaBan {
         // Giữ nguyên hoạt động cũ cho lớp Sach
         return "Sach{" + getThongTinCoBan() + '}';
     }
+
+    // <-- TRIỂN KHAI CÁC PHƯƠNG THỨC TỪ GIAO DIỆN IkiemKe -->
+    @Override
+    public boolean kiemTraTonKho(int soLuongToiThieu) {
+        return getSoLuong() >= soLuongToiThieu;
+    }
+
+    @Override
+    public void capNhatViTri(String viTriMoi) {
+        // setviTri() được kế thừa từ lớp Sach
+        setviTri(viTriMoi);
+        System.out.println("Da chuyen sach " + getTieuDe() + " den khu vuc: " + viTriMoi +".");
+    }
 }

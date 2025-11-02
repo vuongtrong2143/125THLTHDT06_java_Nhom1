@@ -31,16 +31,4 @@ public class SachTieuThuyet extends Sach {
             ", laSachSeries = '" + laSachSeries + '\'' +
             ", GiaBan = '" + tinhGiaBan() + '\'' + '}';
     }
-    
-    // <-- TRIỂN KHAI CÁC PHƯƠNG THỨC TỪ GIAO DIỆN IkiemKe -->
-    @Override
-    public boolean kiemTraTonKho(int soLuongToiThieu) {
-        return getSoLuong() >= soLuongToiThieu;
-    }
-
-    @Override
-    public void capNhatViTri(String viTriMoi) {
-        setviTri(viTriMoi);
-        System.out.println("Da chuyen sach " + getTieuDe() + " den khu vuc: " + viTriMoi +".");
-    }
 }
